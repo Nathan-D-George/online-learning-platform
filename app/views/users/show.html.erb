@@ -1,0 +1,25 @@
+<div class='d-flex justify-content-center align-items-center' style='padding-top:20px'>
+  <div class='col-md-5'>
+    <div class="card">
+      <div class="card-header text-center">
+        <%= image_tag( @user.photo, class:'profile-pic') if @user.photo.present? %>
+        <h3 class='mt-3'> <%= @user.name %> </h3>
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p> <strong>Email: </strong> <%= @user.email %> </p>
+          <% if @user.teacher == true %>
+            <p> <strong>Status: </strong> teacher </p>
+          <% else %>
+            <p> <strong>Status: </strong> learner </p>
+          <% end %>
+          <hr>
+          <p> Courses </p>
+        </blockquote>
+      </div>
+    </div>
+    <% if Current.user.id == @user.id %>
+      <%= link_to "Delete Account", destroy_user_path(id:@user.id), class:'btn btn-danger', data:{turbo_method: :delete, turbo_confirm: "Delete Account?"} %>
+    <% end %>
+  </div>
+</div>

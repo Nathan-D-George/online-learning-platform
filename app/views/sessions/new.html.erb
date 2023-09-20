@@ -1,0 +1,13 @@
+<h1>Log In </h1>
+
+<%= form_with model:@user, url: login_path, method: :post do |f| %>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email, class:'form-control' %>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password, class:'form-control' %>
+  </p>
+  <%= f.submit "Login", class:'btn btn-secondary' %>
+<% end %>

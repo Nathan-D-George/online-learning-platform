@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  get    '/sessions/new',     to: 'sessions#new',     as: 'new_user_session'
+  post   '/sessions/create',  to: 'sessions#create',  as: 'login'
+  delete '/sessions/destroy', to: 'sessions#destroy', as: 'logout'
+
+  resources :users, except: [:new, :edit, :show, :destroy]
+  get    '/registrations/new',     to: 'users#new',     as: 'new_user'
+  post   '/registrations/create',  to: 'users#create',  as: 'create_user'
+  get    '/registrations/show',    to: 'users#show',    as: 'show_user'
+  get    '/registrations/edit',    to: 'users#edit',    as: 'edit_user'
+  patch  '/registrations/update',  to: 'users#update',  as: 'update_user'
+  delete '/registrations/destroy', to: 'users#destroy', as: 'destroy_user'
+
   get '/about', to: 'about#new'
   root          to: 'home#new'
 

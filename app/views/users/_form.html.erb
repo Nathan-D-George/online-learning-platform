@@ -1,0 +1,30 @@
+<%= form_with model:@user, local: true do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, class:'form-control' %>
+  </p>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email, class:'form-control' %>
+  </p>
+  <p>
+    <%= f.label :teacher %>
+    <%= f.select :teacher, ["", "learner", "teacher"], {}, { class:'form-select post' } %>
+  </p>
+  <p>
+    <%= f.label :photo %>
+    <%= f.file_field :photo, accept:' image/jpg, image/jpeg, image/png, image/avif', class:'form-control' %>
+  </p>
+  <% if @user.new_record? %>
+    <p>
+      <%= f.label :password %>
+      <%= f.password_field :password, class:'form-control' %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class:'form-control' %>
+    </p>
+  <% end %>
+  <%= f.submit( @user.new_record? ? "Create" : "Update", class:'btn btn-primary') %>
+  
+<% end %>
