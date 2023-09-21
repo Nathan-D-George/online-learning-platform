@@ -1,0 +1,15 @@
+<%= form_with model: @lesson, local: true do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, class:'form-control' %>
+  </p>
+  <p>
+    <%= f.label :description %>
+    <%= f.text_area :description, class:'form-control', style:'height:120px' %>
+  </p>
+  <p>
+    <% f.label :Files %>
+    <%= f.file_field(:lesson_files, multiple: true) %>
+  </p>
+  <%= f.submit("Lesson", class:'btn', style:'color:white; background-color: purple') %>
+<% end %>

@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     user.password_confirmation = params[:user][:password_confirmation]
     if user.save
       flash[:notice] = "Account Created"
+      session[:user_id] = user.id
       redirect_to root_path
     else
       flash[:alert]  = 'Something went wrong'

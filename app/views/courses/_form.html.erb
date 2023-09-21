@@ -1,0 +1,12 @@
+
+<%= form_with model: @course, local: true do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, class:'form-control' %>
+  </p>
+  <p>
+    <%= f.label :description %>
+    <%= f.text_area :description, class:'form-control', style:'height: 100px' %>
+  </p>
+  <%= f.submit( @course.new_record? ? "Create Course" : "Update Course", class:'btn btn-success' ) %>
+<% end %>

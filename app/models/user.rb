@@ -5,6 +5,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length:{minimum: 3, maximum:20, message: "name must be 3 - 20 characters"}
   
   has_one_attached :photo
+  has_many :courses, dependent: :destroy
+  
 
   after_create_commit { add_photo }
 

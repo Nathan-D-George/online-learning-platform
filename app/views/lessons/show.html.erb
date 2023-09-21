@@ -1,0 +1,18 @@
+<div class='d-flex justify-content-center align-items-center mt-2'>
+  <div class='col-md-6'>
+    <div class="card">
+      <div class="card-header text-center">
+        <h1> <%= @lesson.name %> </h1>
+      </div>
+      <div class="card-body">
+        <p>Description: <%= @lesson.description %></p>
+        <% if @lesson.lesson_files.present? %>
+          <p>Lesson files: </p>
+          <% @lesson.lesson_files.each_with_index do |file, index| %>
+            <p> <%= link_to "File #{index+1}", url_for(file), style:'color:black'%> <p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

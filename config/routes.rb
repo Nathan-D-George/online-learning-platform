@@ -1,10 +1,28 @@
 Rails.application.routes.draw do
+  resources :lessons, except: [:new, :edit, :show, :destroy]
+  get    '/lessons/new',     to: 'lessons#new',     as: 'new_lesson'
+  post   '/lessons/create',  to: 'lessons#create',  as: 'create_lesson'
+  get    '/lessons/edit',    to: 'lessosn#edit',    as: 'edit_lesson'
+  patch  '/lessons/update',  to: 'lessons#update',  as: 'update_lesson'
+  get    '/lessons/show',    to: 'lessons#show',    as: 'show_lesson'
+  get    '/lessons/list',    to: 'lessons#list',    as: 'list_lessons'
+  delete '/lessons/destroy', to: 'lessons#destroy', as: 'destroy_lesson'
+
+  resources :courses, except: [:new, :edit, :show, :destroy]
+  get    '/courses/new',     to: 'courses#new',     as: 'new_course'
+  post   '/courses/create',  to: 'courses#create',  as: 'create_course'
+  get    '/courses/show',    to: 'courses#show',    as: 'show_course'
+  get    '/courses/list',    to: 'courses#list',    as: 'list_courses'
+  get    '/courses/edit',    to: 'courses#edit',    as: 'edit_course'
+  patch  '/courses/update',  to: 'courses#update',  as: 'update_course'
+  delete '/courses/destroy', to: 'courses#destroy', as: 'destroy_course'
 
   get    '/sessions/new',     to: 'sessions#new',     as: 'new_user_session'
   post   '/sessions/create',  to: 'sessions#create',  as: 'login'
   delete '/sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
   resources :users, except: [:new, :edit, :show, :destroy]
+
   get    '/registrations/new',     to: 'users#new',     as: 'new_user'
   post   '/registrations/create',  to: 'users#create',  as: 'create_user'
   get    '/registrations/show',    to: 'users#show',    as: 'show_user'
