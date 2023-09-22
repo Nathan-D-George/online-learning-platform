@@ -51,4 +51,11 @@
   height: 150px;
   width:  150px;
 
- }
+}
+.breadcrumb{
+  text-decoration: none;
+  color:black;
+}
+.round{
+  border-radius:30px;
+}

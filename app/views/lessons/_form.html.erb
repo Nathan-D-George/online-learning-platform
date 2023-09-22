@@ -9,7 +9,7 @@
   </p>
   <p>
     <% f.label :Files %>
-    <%= f.file_field(:lesson_files, multiple: true) %>
+    <%= f.file_field(:lesson_files, multiple: true, class:'form-control') %>
   </p>
-  <%= f.submit("Lesson", class:'btn', style:'color:white; background-color: purple') %>
+  <%= f.submit("Lesson", class:'btn col-md-2', style:'color:white; background-color: purple') %>
 <% end %>

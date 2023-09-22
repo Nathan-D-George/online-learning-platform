@@ -1,6 +1,7 @@
 <div class='d-flex justify-content-center align-items-center mt-2'>
   <div class='col-md-6'>
-    <div class="card">
+    <small><small> <%= render 'breadcrumbs' %> </small></small>
+    <div class="card round">
       <div class="card-header text-center">
         <h1> <%= @lesson.name %> </h1>
       </div>
@@ -9,10 +10,13 @@
         <% if @lesson.lesson_files.present? %>
           <p>Lesson files: </p>
           <% @lesson.lesson_files.each_with_index do |file, index| %>
-            <p> <%= link_to "File #{index+1}", url_for(file), style:'color:black'%> <p>
+            <p> <%= link_to "File #{index+1}", url_for(file), style:'color:black' %> <p>
           <% end %>
         <% end %>
+        <p> <%= link_to "Edit", edit_lesson_path(id: @lesson.id), class:'btn btn-warning mt-2 mb-2 col-md-2' %> </p>
+        <p> <%= link_to "Delete", destroy_lesson_path(id: @lesson.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn col-md-2 mb-2 mt-1', style:'color:white; background-color:red' %> </p>
       </div>
     </div>
+    <%= link_to "Course", show_course_path(id: @course.id), class:"btn btn-secondary mt-4 col-md-2" %>
   </div>
 </div>

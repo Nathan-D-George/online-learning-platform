@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
+  get    '/assessments/new',         to: 'assessments#new',         as: 'new_assessment'
+  post   '/assessments/create',      to: 'assessments#create',      as: 'create_assessment'
+  get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
+  patch  '/assessments/update',      to: 'assessments#update',      as: 'update_assessment'
+  delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'
+  get    '/assessments/new_quiz',    to: 'assessments#new_quiz',    as: 'new_quiz'
+  post   '/assessments/create_quiz', to: 'assessments#create_quiz', as: 'create_quiz'
+
   resources :lessons, except: [:new, :edit, :show, :destroy]
   get    '/lessons/new',     to: 'lessons#new',     as: 'new_lesson'
   post   '/lessons/create',  to: 'lessons#create',  as: 'create_lesson'
-  get    '/lessons/edit',    to: 'lessosn#edit',    as: 'edit_lesson'
+  get    '/lessons/edit',    to: 'lessons#edit',    as: 'edit_lesson'
   patch  '/lessons/update',  to: 'lessons#update',  as: 'update_lesson'
   get    '/lessons/show',    to: 'lessons#show',    as: 'show_lesson'
   get    '/lessons/list',    to: 'lessons#list',    as: 'list_lessons'

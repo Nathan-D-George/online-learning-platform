@@ -1,2 +1,8 @@
-<h1>Lessons#edit</h1>
-<p>Find me in app/views/lessons/edit.html.erb</p>
+<div class='d-flex justify-content-center align-items-center'>
+  <div class='col-md-5'>
+    <small><small> <%= render 'breadcrumbs' %> </small></small>
+    <h1>Lessons#edit</h1>
+    <%= render 'form' %>
+    <%= link_to "Cancel", show_lesson_path(id: @lesson.id), class:'btn btn-secondary mt-4 col-md-2' %>
+  </div>
+</div>

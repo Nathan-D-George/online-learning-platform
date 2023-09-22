@@ -1,0 +1,11 @@
+<% if @course.present? %>
+  <% if @lesson.present? %>
+    <% if @lesson.new_record?%>
+      <%= link_to @course.name, show_course_path(id: @course.id), style:'color:black; text-decoration:none' %> >>
+    <% else %>
+      <%= link_to @course.name, show_course_path(id: @course.id), style:'color:black; text-decoration:none' %> >> <%= link_to @lesson.name, show_lesson_path(id: @lesson.id), style:'color:black; text-decoration:none' %>
+    <% end %>
+  <% else %>
+    <%= link_to @course.name, show_course_path(id: @course.id), class:'breadcrumb' %>
+  <% end %>
+<% end %>

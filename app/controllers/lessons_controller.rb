@@ -1,10 +1,11 @@
 class LessonsController < ApplicationController
   before_action :only_teachers_allowed, except: [:show, :list]
   $course_id = nil
+
   def new
     @lesson = Lesson.new
     $course_id = params[:id].to_i
-    debugger
+    @course    = Course.find(params[:id].to_i)
   end
 
   def create
@@ -13,7 +14,6 @@ class LessonsController < ApplicationController
     lesson.description  = params[:lesson][:description]
     lesson.lesson_files = params[:lesson][:lesson_files]
     lesson.course_id    = $course_id
-    debugger
     if lesson.save
       flash[:notice] = 'Lesson created'
       redirect_to show_lesson_path(id: lesson.id)
@@ -25,24 +25,36 @@ class LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.find(params[:id].to_i)
+    @course = Course.find(@lesson.course_id)
   end
 
   def update
     lesson = Lesson.find(params[:id].to_i)
-    debugger
+    lesson.name         = params[:lesson][:name]
+    lesson.description  = params[:lesson][:description]
+    lesson.lesson_files = params[:lesson][:lesson_files]
+    if lesson.save
+      flash[:notice] = 'Course successfully updated'
+      redirect_to show_lesson_path(id: lesson.id)
+    else
+      flash[:alert]  = 'Something went wrong: updating lesson'
+      render :edit
+    end
   end
 
   def show
     @lesson = Lesson.find(params[:id].to_i)
+    @course = Course.find(@lesson.course_id)
   end
 
   def list
-    @lessons = Lesson.all
+    @lessons = Lesson.where(course_id: params[:id].to_i).all.order(id: :desc)
+    @course  = Course.find(params[:id])
   end
 
   def destroy
     @lesson = Lesson.find(params[:id].to_i)
-    course  = Course.find(@lesson.courses_id)
+    course  = Course.find(@lesson.course_id)
     @lesson.destroy
     flash[:notice] = 'Lesson destroyed'
     redirect_to show_course_path(id: course.id)

@@ -1,6 +1,8 @@
 <div class='d-flex justify-content-center align-items-center'>
   <div class='col-md-6'>
+    <small><small> <%= render 'breadcrumbs' %> </small> </small>
     <h1> New Lesson </h1>
-    <%= render 'form' %>
+    <%= render  "form" %>
+    <%= link_to "Cancel", show_course_path(id: @course.id), class:'btn btn-secondary mt-4 col-md-3' %>
   </div>
 </div>

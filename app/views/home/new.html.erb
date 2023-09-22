@@ -7,5 +7,16 @@
   <%= link_to "Edit Account", edit_user_path(id: Current.user.id), class:'btn btn-success' %>
   <% if Current.user.teacher == true %>
     <%= link_to "Create Course", new_course_path, class:'btn btn-light' %>
-  <% end %>
+  <% end %> 
+   <% if @courses.present? %> 
+    <% @courses.each do |course| %> 
+      <% if course.user_id == Current.user.id %> 
+        <div class='list-group'> 
+          <h4 class='mt-4 col-md-4 round'> 
+            <%= link_to course.name, show_course_path(id: course.id), class:'list-group-item list-group-action round', style:'color:black; height: 100px' %>
+          </h4>
+        </div>
+      <% end %>
+    <% end %>
+   <% end %>
 <% end%>
