@@ -5,6 +5,7 @@
   <%= link_to "Sign In", new_user_session_path, class:'btn btn-outline-primary' %>
 <% else %>
   <%= link_to "Edit Account", edit_user_path(id: Current.user.id), class:'btn btn-success' %>
+  <%= link_to "Courses", list_courses_path, class:'btn btn-dark' %>
   <% if Current.user.teacher == true %>
     <%= link_to "Create Course", new_course_path, class:'btn btn-light' %>
   <% end %> 

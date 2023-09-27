@@ -8,11 +8,15 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_only
-    redirect_to root_path, alert: 'YOu must be signed in to do this' if Current.user.nil?
+    redirect_to root_path, alert: 'You must be signed in to do this' if Current.user.nil?
   end
 
   def correct_user_only
     redirect_to root_path, alert: 'You dont have the correct permissions to do this' if Current.user.id != @user.id
+  end
+
+  def teacher_only
+    redirect_to root_path, alert: 'You dont have the correct permissions to do this' if Current.user.teacher == false
   end
 
 end

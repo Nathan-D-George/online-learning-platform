@@ -1,0 +1,11 @@
+<%= form_with model: @answer, url: create_answer_path do |f| %>
+  <p>
+    <h4> <%= f.label :answer %> </h4>
+    <%= f.text_field :answer, class:'form-control' %>
+  </p>
+  <p>
+    <h4> <%= f.label :correct_answer? %> </h4>
+    <%= f.select :correct_answer, ["false", "true"], {}, { class:'form.select' } %>
+  </p>
+  <%= f.submit "Add answer", class:'btn btn-primary mt-4' %>
+<% end %>

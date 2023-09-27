@@ -1,2 +1,9 @@
-<h1>Assessments#edit</h1>
-<p>Find me in app/views/assessments/edit.html.erb</p>
+<div class='d-flex align-items-center justify-content-center'>
+  <div class='col-md-6'>
+    <h1> Edit Assessment </h1>
+    <%= render 'form' %>
+    <%= link_to "Delete", destroy_assessment_path(id: @assessment.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn mt-4 col-md-3', style:'background-color: red; color:white' %>
+  </div>
+</div>
+
+

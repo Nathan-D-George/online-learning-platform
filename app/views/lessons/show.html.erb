@@ -13,8 +13,10 @@
             <p> <%= link_to "File #{index+1}", url_for(file), style:'color:black' %> <p>
           <% end %>
         <% end %>
-        <p> <%= link_to "Edit", edit_lesson_path(id: @lesson.id), class:'btn btn-warning mt-2 mb-2 col-md-2' %> </p>
-        <p> <%= link_to "Delete", destroy_lesson_path(id: @lesson.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn col-md-2 mb-2 mt-1', style:'color:white; background-color:red' %> </p>
+        <% if @course.user_id == Current.user.id %>
+          <p> <%= link_to "Edit", edit_lesson_path(id: @lesson.id), class:'btn btn-warning mt-2 mb-2 col-md-2' %> </p>
+          <p> <%= link_to "Delete", destroy_lesson_path(id: @lesson.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn col-md-2 mb-2 mt-1', style:'color:white; background-color:red' %> </p>
+        <% end %>
       </div>
     </div>
     <%= link_to "Course", show_course_path(id: @course.id), class:"btn btn-secondary mt-4 col-md-2" %>

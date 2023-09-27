@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  resources :answers, except: [:destroy]
+  post   '/answers/create',  to: 'answer#create',   as: 'create_answer'
+  patch  '/answers/update',  to: 'answer#update',   as: 'update_answer'
+  delete '/answers/destroy', to: 'answers#destroy', as: 'destroy_answer'
+
+  resources :questions, except: [:new, :destroy]
+  get    '/question/new',     to: 'questions#new',     as: 'new_questions'
+  post   '/question/create',  to: 'questions#create',  as: 'create_questions'
+  patch  '/question/update',  to: 'questions#update',  as: 'update_question'
+  delete '/question/destroy', to: 'questions#destroy', as: 'destroy_question'
+  
+  resources :quizzes, except: [:new, :edit, :destroy]
+  get    '/quiz/new',     to: 'quizzes#new',     as: 'new_quiz_bruh'
+  post   '/quiz/create',  to: 'quizzes#create',  as: 'create_quiz_bruh'
+  get    '/quiz/edit',    to: 'quizzes#edit',    as: 'edit_quiz'
+  patch  '/quiz/update',  to: 'quizzes#update',  as: 'update_quiz'
+  delete '/quiz/destroy', to: 'quizzes#destroy', as: 'destroy_quiz'
+
+  resources :assessments, except: [:new, :edit, :show, :destroy]
   get    '/assessments/new',         to: 'assessments#new',         as: 'new_assessment'
   post   '/assessments/create',      to: 'assessments#create',      as: 'create_assessment'
   get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
@@ -6,6 +25,8 @@ Rails.application.routes.draw do
   delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'
   get    '/assessments/new_quiz',    to: 'assessments#new_quiz',    as: 'new_quiz'
   post   '/assessments/create_quiz', to: 'assessments#create_quiz', as: 'create_quiz'
+  get    '/assessments/question',    to: 'assessments#new_question',     as: 'new_question'
+  post   '/assessments/question',    to: 'assessments#create_question',  as: 'create_question'
 
   resources :lessons, except: [:new, :edit, :show, :destroy]
   get    '/lessons/new',     to: 'lessons#new',     as: 'new_lesson'

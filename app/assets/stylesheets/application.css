@@ -58,4 +58,10 @@
 }
 .round{
   border-radius:30px;
+  border-width: 4px;
+}
+.round:hover {
+  color: black;
+  border-color: black;
+  border-width: 4px;
 }

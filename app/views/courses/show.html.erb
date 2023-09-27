@@ -12,15 +12,21 @@
       </div>
     </div>
     <% if @course.user_id == Current.user.id %>
-      <%= link_to edit_course_path(id:@course.id), class:'btn btn-warning mt-4 col-md-3' do %>
+      <%= link_to edit_course_path(id:@course.id), class:'btn btn-warning mt-4 col-3' do %>
         <%= fa_icon "pencil-square" %> Edit Course
       <% end %>
-      <%= link_to new_lesson_path(id: @course.id), class:'btn mt-4 col-md-3', style:'color:white; background-color:blue' do %>
-        <%= fa_icon "plus-circle" %> Add Lesson
+      <%= link_to new_lesson_path(id: @course.id), class:'btn mt-4 col-3', style:'color:white; background-color:blue' do %>
+        <%= fa_icon "plus-circle" %> New Lesson
       <% end %>
-      <div class='mt-4'>
-        <h4> <%= link_to "Lessons", list_lessons_path(id: @course.id), style:'color:black' %> </h4>
-      </div>
+      <%= link_to new_assessment_path, class:'btn mt-4 col-3', style:'background-color: gray' do %> 
+        <%= fa_icon "percent" %> New Assessment
+      <% end %>
+      <%= link_to new_quiz_path(id: @course.id), class:'btn mt-4 col-2', style:'background-color: lightblue' do %>
+        <%= fa_icon "gg" %> New Quiz
+      <% end %>
     <% end %>
+    <div class='mt-4'>
+      <h4> <%= link_to "Lessons", list_lessons_path(id: @course.id), style:'color:black' %> </h4>
+    </div>
   </div>
 </div>

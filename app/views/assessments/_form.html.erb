@@ -1,0 +1,20 @@
+
+<%= form_with model:@assessment, local:true do |f| %>
+  <p>
+    <h5> <%= f.label :name %> </h5>
+    <%= f.text_field :name, class:'form-control' %>
+  </p>
+  <p>
+    <h5> <%= f.label :description %> </h5>
+    <%= f.text_field :description, class:'form-control' %>
+  </p>
+  <p>
+    <h5> <%= f.label :Total_marks %> </h5>
+    <%= f.number_field :total_marks, in: 5..150, step: 5, class:'form-control' %>
+  </p>
+  <p>
+    <h5> <%= f.label :Assessment_type %> </h5>
+    <%= f.select :assessment_type, ["quiz", "test"], { }, { multiple: false, class:'form-select' } %>
+  </p>
+  <%= f.submit(@assessment.new_record? ? "Create" : "Update", class:'btn btn-primary col-md-3') %>
+<% end %>
