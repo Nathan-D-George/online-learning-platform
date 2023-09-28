@@ -5,16 +5,16 @@ Rails.application.routes.draw do
   delete '/answers/destroy', to: 'answers#destroy', as: 'destroy_answer'
 
   resources :questions, except: [:new, :destroy]
-  get    '/question/new',     to: 'questions#new',     as: 'new_questions'
-  post   '/question/create',  to: 'questions#create',  as: 'create_questions'
+  # get    '/question/new',     to: 'questions#new',     as: 'new_questions'
+  # post   '/question/create',  to: 'questions#create',  as: 'create_questions'
   patch  '/question/update',  to: 'questions#update',  as: 'update_question'
   delete '/question/destroy', to: 'questions#destroy', as: 'destroy_question'
   
   resources :quizzes, except: [:new, :edit, :destroy]
-  get    '/quiz/new',     to: 'quizzes#new',     as: 'new_quiz_bruh'
-  post   '/quiz/create',  to: 'quizzes#create',  as: 'create_quiz_bruh'
-  get    '/quiz/edit',    to: 'quizzes#edit',    as: 'edit_quiz'
-  patch  '/quiz/update',  to: 'quizzes#update',  as: 'update_quiz'
+  # get    '/quiz/new',     to: 'quizzes#new',     as: 'new_quiz_bruh'
+  # post   '/quiz/create',  to: 'quizzes#create',  as: 'create_quiz_bruh'
+  get    '/quiz/edit',    to: 'quizzes#edit',    as: 'edit_quizz'  
+  patch  '/quiz/update',  to: 'quizzes#update',  as: 'update_quiz' 
   delete '/quiz/destroy', to: 'quizzes#destroy', as: 'destroy_quiz'
 
   resources :assessments, except: [:new, :edit, :show, :destroy]
@@ -23,8 +23,13 @@ Rails.application.routes.draw do
   get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
   patch  '/assessments/update',      to: 'assessments#update',      as: 'update_assessment'
   delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'
+
   get    '/assessments/new_quiz',    to: 'assessments#new_quiz',    as: 'new_quiz'
   post   '/assessments/create_quiz', to: 'assessments#create_quiz', as: 'create_quiz'
+  get    '/assessments/show_quiz',   to: 'assessments#show_quiz',   as: 'show_quiz'
+  get    '/assessments/review_quiz', to: 'assessments#review_quiz', as: 'review_quiz'
+  get    '/assessments/take_quiz',   to: 'assessments#take_quiz',   as: 'take_quiz'
+  post   '/assessments/submit_quiz', to: 'assessments#submit_quiz', as: 'submit_quiz'
   get    '/assessments/question',    to: 'assessments#new_question',     as: 'new_question'
   post   '/assessments/question',    to: 'assessments#create_question',  as: 'create_question'
 

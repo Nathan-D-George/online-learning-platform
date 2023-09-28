@@ -4,6 +4,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.text :body
       t.references :quiz, null: false, foreign_key: true
       t.integer :answer
+      t.integer :total_marks, default: 1
 
     end
   end

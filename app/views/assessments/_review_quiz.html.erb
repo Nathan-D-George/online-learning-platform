@@ -1,0 +1,15 @@
+<h2> <%= @quiz.name %> </h2>
+
+<p> Total Marks: <%= @quiz.total_marks %> </p>
+
+<h4> Questions </h4>
+<% @quiz.questions.each_with_index do |question, index| %>
+  <h6> Q<%= index+1 %> <%= question.body %> (<%= question.total_marks %>) </h6>
+  <p> answer: <%= Answer.find(question.answer).body %> </p>
+  
+    options: <p>
+    <% question.answers.each_with_index do |answer, index| %>
+      (<%= index+1 %>) <%= answer.body %> <% if index != 4 %>,<% end %>
+    <% end %>
+  </p>
+<% end %>

@@ -72,14 +72,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_093601) do
     t.text "body"
     t.integer "quiz_id", null: false
     t.integer "answer"
+    t.integer "total_marks", default: 1
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.integer "total"
-    t.integer "mark"
+    t.string "name"
+    t.integer "total_marks"
     t.integer "number_questions"
     t.integer "course_id", null: false
+    t.integer "assessment_id", null: false
+    t.index ["assessment_id"], name: "index_quizzes_on_assessment_id"
     t.index ["course_id"], name: "index_quizzes_on_course_id"
   end
 
@@ -97,5 +100,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_093601) do
   add_foreign_key "courses", "users"
   add_foreign_key "lessons", "courses"
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "assessments"
   add_foreign_key "quizzes", "courses"
 end

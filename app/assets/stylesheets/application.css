@@ -65,3 +65,11 @@
   border-color: black;
   border-width: 4px;
 }
+.quiz-window{
+  width:  550px;
+  height: 800px;
+  overflow-y: auto;
+  overflow-x: auto;
+  /* background-color: rgb(158, 158, 235);
+  border: 6px solid black; */
+}

@@ -16,5 +16,5 @@
     <h5> <%= f.label :Assessment_type %> </h5>
     <%= f.select :assessment_type, ["quiz", "test"], { }, { multiple: false, class:'form-select' } %>
   </p>
-  <%= f.submit(@assessment.new_record? ? "Create" : "Update", class:'btn btn-primary col-md-3') %>
+  <%= f.submit("Create", class:'btn btn-primary col-md-3') %>
 <% end %>
