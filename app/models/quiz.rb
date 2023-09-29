@@ -2,6 +2,7 @@ class Quiz < ApplicationRecord
   belongs_to :course
 
   has_many :questions
+  has_many :marks
 
   def calculate_total_marks
     total = 0

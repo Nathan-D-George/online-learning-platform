@@ -2,15 +2,16 @@
   <div class='col-md-6'>
     <h2> <%= @quiz.name %> </h2>
     <hr>
-    <%= form_with model: @answer, url: submit_quiz_path, method: :post do |f| %>
-      <% @quiz.questions.each_with_index do |question, index| %>
+    <% @quiz.questions.each_with_index do |question, index| %>
+      <%= form_with model: question, url: submit_quiz_path, method: :post do |f| %>
         <h5> Q<%= index+1 %> <p> <%= question.body %> </p> </h5>
         <% question.answers.each_with_index do |answer, index| %>
           <p> <%= index+1 %>. <%= answer.body %> </p>
         <% end %>
-        <%= f.select :answer, ['1','2','3','4','5'], {}, {multiple: false, class:'form-select mb-4'} %>
+        <%= f.select :answer , ['1','2','3','4','5'], {}, {multiple: false, class:'form-select mb-4', id:"Q#{index+1}"} %>
+        <%= f.select :question_no , ["#{index+1}"], {}, {multiple: false, class:'form-select mb-4 quiz-number' } %> 
+        <%= f.submit "Submit Answer", class:'btn btn-secondary mb-4', data:{disable_with: "Submitting..."} %> 
       <% end %>
-      <%= f.submit "Submit", class:'btn btn-secondary mb-4' %>
     <% end %>
   </div>
 </div>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :assessments, except: [:new, :edit, :show, :destroy]
   get    '/assessments/new',         to: 'assessments#new',         as: 'new_assessment'
   post   '/assessments/create',      to: 'assessments#create',      as: 'create_assessment'
+  get    '/assessments/list',        to: 'assessments#list',        as: 'list_quizzes'
   get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
   patch  '/assessments/update',      to: 'assessments#update',      as: 'update_assessment'
   delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'

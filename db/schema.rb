@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_26_093601) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_29_082947) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -68,6 +68,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_093601) do
     t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
+  create_table "marks", force: :cascade do |t|
+    t.integer "achieved", default: 0
+    t.integer "achievable"
+    t.integer "quiz_id", null: false
+    t.integer "user_id", null: false
+    t.index ["quiz_id"], name: "index_marks_on_quiz_id"
+    t.index ["user_id"], name: "index_marks_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "body"
     t.integer "quiz_id", null: false
@@ -99,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_093601) do
   add_foreign_key "assessments", "courses"
   add_foreign_key "courses", "users"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "marks", "quizzes"
+  add_foreign_key "marks", "users"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "assessments"
   add_foreign_key "quizzes", "courses"

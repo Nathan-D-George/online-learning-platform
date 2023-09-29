@@ -4,6 +4,7 @@ class AssessmentsController < ApplicationController
   $quiz_id   = nil
   $question_id   = nil
   $assessment_id = nil
+  $quiz = Quiz.new
 
   def new
     @assessment = Assessment.new
@@ -46,6 +47,11 @@ class AssessmentsController < ApplicationController
       flash[:alert]  = "Something went wrong"
       render :edit
     end
+  end
+
+  def list
+    @course  = Course.find(params[:id].to_i)
+    @quizzes = @course.quizzes.order(id: :desc) 
   end
 
   def destroy
@@ -179,5 +185,20 @@ class AssessmentsController < ApplicationController
 
   def take_quiz
     @quiz = Quiz.find(params[:id].to_i)
+    $quiz_id = params[:id].to_i
+  end
+
+  def submit_quiz
+    quiz = Quiz.find($quiz_id)
+    mark = Mark.new(user_id: Current.user.id, quiz_id: $quiz_id)         if Mark.where(user_id: Current.user.id, quiz_id: $quiz_id).first.blank?
+    mark = Mark.where(user_id: Current.user.id, quiz_id: $quiz_id).first if Mark.where(user_id: Current.user.id, quiz_id: $quiz_id).first.present?
+    quiz.questions.each_with_index do |question, index|
+      if index+1 == params[:question][:question_no].to_i
+        mark.achieved  += question.total_marks if params[:question][:answer].to_i == question.answer
+        mark.achievable = question.total_marks
+        mark.save
+      end
+    end
+    debugger
   end
 end

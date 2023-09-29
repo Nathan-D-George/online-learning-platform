@@ -6,6 +6,7 @@ class User < ApplicationRecord
   
   has_one_attached :photo
   has_many :courses, dependent: :destroy
+  has_many :marks, dependent: :destroy
   
 
   after_create_commit { add_photo }

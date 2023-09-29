@@ -27,6 +27,9 @@
     <% end %>
     <div class='mt-4'>
       <h4> <%= link_to "Lessons", list_lessons_path(id: @course.id), style:'color:black' %> </h4>
+      <% if @course.quizzes.present? %> 
+        <h4 class='mt-4'> <%= link_to "Quizzes", list_quizzes_path(id: @course.id), style:'color: black' %> </h4>
+      <% end %>
     </div>
   </div>
-</div>
+</div> 

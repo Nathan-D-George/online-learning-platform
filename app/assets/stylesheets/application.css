@@ -73,3 +73,7 @@
   /* background-color: rgb(158, 158, 235);
   border: 6px solid black; */
 }
+.quiz-number{
+  display: none;
+  pointer-events: none;
+}

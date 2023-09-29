@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  achieved: 1
+  achievable: 1
+  quiz: one
+  user: one
+
+two:
+  achieved: 1
+  achievable: 1
+  quiz: two
+  user: two
