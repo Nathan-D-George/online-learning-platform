@@ -17,17 +17,16 @@ class AssessmentsController < ApplicationController
     assessment.name        = params[:assessment][:name]
     assessment.description = params[:assessment][:description]
     assessment.total       = params[:assessment][:total_marks].to_i
-    assessment.assess_type = params[:assessment][:assessment_type]
+    assessment.assess_type = params[:assessment][:assess_type]
     assessment.course_id   = $course_id
     debugger
     if assessment.save
-      flash[:notice] = 'Assessment created'
+      flash[:notice] = 'Assessment Created'
       redirect_to new_quiz_path(id: assessment.id)
     else
       flash[:alert]  = 'Something went wrong: assessment creation'
       render :new
     end
-
   end
 
   def edit
@@ -38,20 +37,22 @@ class AssessmentsController < ApplicationController
     assessment = Assessment.find(params[:id].to_i)
     assessment.name = params[:assessment][:name]
     assessment.description = params[:assessment][:description]
-    assessment.total       = params[:assessment][:total_marks]     if params[:assessment][:total_marks].present?
-    assessment.assess_type = params[:assessment][:assessment_type]
+    assessment.total       = params[:assessment][:total_marks] if params[:assessment][:total_marks].present?
+    assessment.assess_type = params[:assessment][:assess_type]
+    assessment.question_paper = params[:assessment][:file]     if params[:assessment][:file].present?
     if assessment.save
-      flash[:notice] = 'Assessment Created'
+      flash[:notice] = 'Assessment Updated'
       redirect_to show_course_path(id: assessment.course_id)
     else
       flash[:alert]  = "Something went wrong"
       render :edit
     end
   end
-
+  
   def list
     @course  = Course.find(params[:id].to_i)
     @quizzes = @course.quizzes.order(id: :desc) 
+    @pic     = "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm90ZXBhZCUyMGFuZCUyMHBlbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
   end
 
   def destroy
@@ -79,7 +80,7 @@ class AssessmentsController < ApplicationController
     quiz.name             = params[:quiz][:name]
     quiz.number_questions = params[:quiz][:number_of_questions]
     quiz.assessment_id    = $assessment_id
-    debugger
+    # debugger
     if quiz.save
       quiz.number_questions.times do |iteration|
         question = Question.new(quiz_id: quiz.id)
@@ -93,7 +94,7 @@ class AssessmentsController < ApplicationController
       flash[:notice] = "Quiz Initialized"
       redirect_to new_question_path(id: quiz.id)
     else
-      flash[:alert] = "Something went wrong"
+      flash[:alert]  = "Something went wrong"
       render :new_quiz
     end
   end
@@ -106,7 +107,7 @@ class AssessmentsController < ApplicationController
 
   def create_question
     # question = Question.new(body: params[:question][:body], quiz_id: $quiz_id)
-    quiz          = Quiz.find($quiz_id)
+    quiz     = Quiz.find($quiz_id)
     question = quiz.questions.first  if params[:question][:question_no] == "1"
     question = quiz.questions.second if params[:question][:question_no] == "2"
     question = quiz.questions.third  if params[:question][:question_no] == "3"
@@ -186,6 +187,8 @@ class AssessmentsController < ApplicationController
   def take_quiz
     @quiz = Quiz.find(params[:id].to_i)
     $quiz_id = params[:id].to_i
+    mark  = Mark.where(user_id: Current.user.id, quiz_id: @quiz.id).first
+    redirect_to quiz_results_path(id: @quiz.course_id), alert: 'Already written the quiz' if mark.present? && mark.achievable >= @quiz.total_marks
   end
 
   def submit_quiz
@@ -194,11 +197,23 @@ class AssessmentsController < ApplicationController
     mark = Mark.where(user_id: Current.user.id, quiz_id: $quiz_id).first if Mark.where(user_id: Current.user.id, quiz_id: $quiz_id).first.present?
     quiz.questions.each_with_index do |question, index|
       if index+1 == params[:question][:question_no].to_i
-        mark.achieved  += question.total_marks if params[:question][:answer].to_i == question.answer
-        mark.achievable = question.total_marks
+        answer = question.answers[params[:question][:answer].to_i-1]
+        mark.achieved   += question.total_marks if answer.correct == true
+        mark.achievable += question.total_marks
         mark.save
       end
     end
-    debugger
+    redirect_to quiz_results_path(id: quiz.course_id), notice: "You've completed the quiz" if mark.achievable >= quiz.total_marks
+  end
+
+  def results
+    @quiz = Quiz.find(params[:id])
+    @mark = Mark.where(quiz_id: @quiz.id, user_id: Current.user.id).first
+    marks = Mark.where(quiz_id: @quiz.id).all
+    total = 0
+    marks.each {|mark|
+      total += mark.achieved
+    }
+    @average = total.to_f / marks.length
   end
 end

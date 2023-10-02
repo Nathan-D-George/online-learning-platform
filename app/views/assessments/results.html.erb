@@ -1,0 +1,21 @@
+<div class='d-flex align-items-center justify-content-center'>
+  <div class='col-md-6'>
+    <div class="card text-center">
+      <div class="card-header">
+        <h4> <%= @quiz.name %> </h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> results: <%= Current.user.name %> </h5>
+        <% if @mark.present? %>
+          <p class="card-text"> <%= @mark.achieved %>/ <%= @quiz.total_marks %> </p>
+        <% else %>
+          <p class="card-text"> You haven't Written this Assessment Yet! </p>
+        <% end %>
+      </div>
+      <div class="card-footer text-muted">
+        Class average: <%= @average.truncate(1) %>/<%= @quiz.total_marks %>
+      </div>
+    </div>
+    <%= link_to "back", list_quizzes_path(id: @quiz.id), class:'mt-4 mb-4 btn btn-secondary col-md-2' %>
+  </div>
+</div>

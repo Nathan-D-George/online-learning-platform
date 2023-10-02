@@ -1,17 +1,36 @@
 <div class='d-flex align-items-center justify-content-center'>
   <div class='col-9'>
-    <div class='row'>
-      <div class='col-md-5'>
-        <div class='quiz-window'>
-          <%= render 'review_quiz' %>
+    <% if Current.user.teacher == true %>
+      <div class='row'>
+        <div class='col-md-5'>
+          <div class='quiz-window'>
+            <%= render 'review_quiz' %>
+          </div>
+        </div>
+        <div class='col-md-2'>
+          <p> <%= link_to "Take Quiz", take_quiz_path(id: @quiz.id), class:'btn col-6', style:'background-color:#7a020c; color:white; height:90px; padding-top:35px' %> </p>
+        </div>
+        <div class='col-md-5'>
+          <%= render 'new_question' %>
         </div>
       </div>
-      <div class='col-md-2'>
-        <p> <%= link_to "Take Quiz", take_quiz_path(id: @quiz.id), class:'btn col-6', style:'background-color:#7a020c; color:white; height:90px; padding-top:35px' %> </p>
+    <% else %>
+      <div class="card text-center">
+        <div class="card-header">
+          <h4> <%= @quiz.name %> </h4>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"> results: <%= Current.user.name %> </h5>
+          <% if @mark.present? %>
+            <p class="card-text"> <%= @mark.achieved %>/ <%= @quiz.total_marks %> </p>
+          <% else %>
+            <p class="card-text"> You haven't Written this Assessment Yet! </p>
+            <%= link_to "Write Now", take_quiz_path(id: @quiz.id), class:"btn btn-primary col-md-2" %>
+          <% end %>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
       </div>
-      <div class='col-md-5'>
-        <%= render 'new_question' %>
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>

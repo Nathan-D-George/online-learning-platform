@@ -1,8 +1,20 @@
 <div class='d-flex justify-content-center align-items-center'>
   <div class='col-md-6'>
     <h2> Quizzes </h2>
-    <% @quizzes.each do |quiz| %>
-      <p> <%= link_to quiz.name, take_quiz_path(id: quiz.id), class:'mt-3', style:'color: black' %> <p>
-    <% end %>
+    <div class='list-group'>
+      <% @quizzes.each do |quiz| %>
+        <%= link_to take_quiz_path(id: quiz.id), class:'mt-3 list-group-item list-group-item-action', style:'color: black' do %>
+          <div class='row'>
+            <div class='col-md-2'>
+              <%= image_tag( @pic, style:'height:80px; widht: 80px; border-radius:50%') %>
+            </div>
+            <div class='col-md-10'>
+              <h5> <%= quiz.name %>  </h5>
+              <p>  <%= Assessment.find(quiz.assessment_id).description.truncate(100) %> </p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

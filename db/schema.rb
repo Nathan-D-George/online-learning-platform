@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_082947) do
 
   create_table "marks", force: :cascade do |t|
     t.integer "achieved", default: 0
-    t.integer "achievable"
+    t.integer "achievable", default: 0
     t.integer "quiz_id", null: false
     t.integer "user_id", null: false
     t.index ["quiz_id"], name: "index_marks_on_quiz_id"

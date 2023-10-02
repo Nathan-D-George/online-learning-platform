@@ -5,7 +5,7 @@
 <h4> Questions </h4>
 <% @quiz.questions.each_with_index do |question, index| %>
   <h6> Q<%= index+1 %> <%= question.body %> (<%= question.total_marks %>) </h6>
-  <p> answer: <%= Answer.find(question.answer).body %> </p>
+  <p> answer: <%= Answer.find_by(id: question.answer).body if Answer.find_by(id: question.answer).present? %> </p>
   
     options: <p>
     <% question.answers.each_with_index do |answer, index| %>

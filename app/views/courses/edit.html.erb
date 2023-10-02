@@ -2,6 +2,7 @@
   <div class='col-md-6'>
     <h1>Edit Course</h1>
     <%= render 'form' %>
-    <%= link_to "Delete", destroy_course_path(id: @course.id), data:{ turbo_method: :delete, turbo_confirm: "Delete Course?" }, class:'btn btn-danger mt-4' %>
+    <%= link_to "Delete", destroy_course_path(id: @course.id), data:{ turbo_method: :delete, turbo_confirm: "Delete Course?" }, class:'btn btn-danger mt-4 col-2' %>
+    <%= link_to "Back", show_course_path(id: @course.id), class:'btn btn-secondary mt-4 col-2' %>
   </div>
 </div>

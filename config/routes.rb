@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get    '/assessments/new',         to: 'assessments#new',         as: 'new_assessment'
   post   '/assessments/create',      to: 'assessments#create',      as: 'create_assessment'
   get    '/assessments/list',        to: 'assessments#list',        as: 'list_quizzes'
+  get    '/assessments/results',     to: 'assessments#results',     as: 'quiz_results'
   get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
   patch  '/assessments/update',      to: 'assessments#update',      as: 'update_assessment'
   delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'
@@ -78,6 +79,7 @@ end
   Lord of my life
   Here is my heart
   You will be saved
+  More of You
   Been so good
   Fear is not my future
   You really are
@@ -96,4 +98,6 @@ end
   Crowned (highlands worship, Rebecca Hart)
   All hail the Power of Jesus name
 
+  most beautiful (Greatest Father, Closest Friend)
+  Lex de Azevdo
 =end

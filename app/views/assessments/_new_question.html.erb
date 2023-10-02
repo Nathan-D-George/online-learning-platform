@@ -6,36 +6,36 @@
         <h5> 
           <%= f.label :Question_number %>
           <small> <%= f.number_field :question_no, in: 1..5, step:1 %> </small> 
-        </h5>
+        </h5> 
         <h5> 
           <%= f.label :question %> &nbsp 
           <small> marks: <%= f.number_field :total_marks, in: 1..8, step:1 %> </small> 
-        </h5>
-        <%= f.text_area :body, class:'form-control', style:'height: 40px;' %>
-      </p>
-      <p class='mt-4'>
-        <h5> <%= f.label :option_1 %> </h5>
-        <%= f.text_area :option_1, class:'form-control', style:'height: 40px' %>
-        <%= f.select :option_1_correct, ["false","true"], {prompt: 'is this the answer?'}, { class:'form-select mt-2' } %>
+        </h5> 
+        <%= f.text_area :body, class:'form-control', style:'height: 40px;', placeholder:'question' %> 
+      </p> 
+      <p class='mt-4'> 
+        <h5> <%= f.label :option_1 %> </h5> 
+        <%= f.text_area :option_1, class:'form-control', style:'height: 40px', placeholder:'possible answer 1' %> 
+        <%= f.select :option_1_correct, ["false","true"], {prompt: 'is this the answer?'}, { class:'form-select mt-2' } %> 
       </p>
       <p>
         <h5> <%= f.label :option_2 %> </h5>
-        <%= f.text_area :option_2, class:'form-control', style:'height: 40px' %>
+        <%= f.text_area :option_2, class:'form-control', style:'height: 40px', placeholder:'possible answer 2' %>
         <%= f.select :option_2_correct, ["false","true"], {prompt: 'is this the answer?'}, {class:'form-select mt-2' } %>
       </p>
       <p>
         <h5> <%= f.label :option_3 %> </h5>
-        <%= f.text_area :option_3, class:'form-control', style:'height:40px' %>
+        <%= f.text_area :option_3, class:'form-control', style:'height: 40px', placeholder:'possible answer 3' %>
         <%= f.select :option_3_correct, ["false","true"], {prompt: 'is this the answer?'}, { class:'form-select mt-2' } %>
       </p>
       <p>
         <h5> <%= f.label :option_4 %> </h5>
-        <%= f.text_area :option_4, class:'form-control', style:'height: 40px' %>
+        <%= f.text_area :option_4, class:'form-control', style:'height: 40px', placeholder:'possible answer 4'%>
         <%= f.select :option_4_correct, ["false","true"], {prompt: 'is this the answer?'}, { class:'form-select mt-2' } %>
       </p>
       <p>
         <h5> <%= f.label :option_5 %> </h5>
-        <%= f.text_area :option_5, class:'form-control', style:'height: 40px' %>
+        <%= f.text_area :option_5, class:'form-control', style:'height: 40px', placeholder:'possible answer 5' %>
         <%= f.select :option_5_correct, ["false","true"], {prompt: 'is this the answer?'}, { class:'form-select mt-2' } %>
       </p>
       <%= f.submit "Add Question", class:'btn btn-primary' %>

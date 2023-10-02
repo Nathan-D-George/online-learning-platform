@@ -14,7 +14,10 @@
   </p>
   <p>
     <h5> <%= f.label :Assessment_type %> </h5>
-    <%= f.select :assessment_type, ["quiz", "test"], { }, { multiple: false, class:'form-select' } %>
+    <%= f.select :assess_type, ["quiz", "test"], { }, { multiple: false, class:'form-select' } %>
   </p>
-  <%= f.submit("Create", class:'btn btn-primary col-md-3') %>
+  <% if !@assessment.new_record? %>
+    <p> <%= f.file_field :file, multiple: false %> </p>
+  <% end %>
+  <%= f.submit(@assessment.new_record? ? "Create" : "Update", class:'btn btn-primary col-md-3') %>
 <% end %>

@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :this_course_teacher_only, only:[:edit, :destroy]
-
+  before_action :teachers_only, only: [:new]
   def new 
     @course = Course.new
     console
@@ -57,5 +57,9 @@ class CoursesController < ApplicationController
   def this_course_teacher_only
     course = Course.find(params[:id].to_i)
     redirect_to show_course_path(id: course.id), alert: "Only this course's teacher can do this!" if Current.user.id != course.user_id
+  end
+
+  def teachers_only
+    redirect_to root_path, alert: "Teachers Only!" if Current.user.blank? || Current.user.teacher == false
   end
 end

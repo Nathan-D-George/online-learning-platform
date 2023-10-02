@@ -3,5 +3,7 @@ class Assessment < ApplicationRecord
 
   enum assess_type: %i[quiz test]
 
+  has_one_attached :question_paper
+
 
 end

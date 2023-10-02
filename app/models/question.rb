@@ -10,6 +10,7 @@ class Question < ApplicationRecord
       self.answer = answer.id if answer.correct == true
     }
   end
+  
   def list_answers
     answers = []
     self.answers.each{|answer|
