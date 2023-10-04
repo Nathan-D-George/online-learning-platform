@@ -77,3 +77,9 @@
   display: none;
   pointer-events: none;
 }
+.delete-button{
+  pointer-events: none;
+}
+.delete-box input:checked ~ .delete-button{
+  pointer-events: all;
+}

@@ -31,5 +31,20 @@
         <h4 class='mt-4'> <%= link_to "Quizzes", list_quizzes_path(id: @course.id), style:'color: black' %> </h4>
       <% end %>
     </div>
+    <div class='mt-4'>
+      <h4> <%= link_to "Pending Applications", see_status_path(id:@course.id), style:'color:black' %> </h4>
+    </div>
+    <% if Current.user.teacher == false           %>
+      <div class='delete-box' style="margin-top:410px;">
+        <input type="checkbox" id="delete-box">
+        <label for="delete-box">
+          <p> I'd like to de-register from this course. </p>
+        </label>
+        <div class='delete-button'>
+          <%= link_to "De-Register", delete_fake_path(id: @course.id), class:'btn btn-danger col-2 mb-4', style:'background-color:red' %>
+        </div>
+      </div>`
+    <% end %>
+
   </div>
 </div> 

@@ -10,7 +10,9 @@
           <a class="nav-link active" aria-current="page" href="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Link</a>
+          <% if Current.user.present? %>
+            <%= link_to "Profile", show_user_path(id: Current.user.id), class:'nav-link active', style:'color:white' %>
+          <% end %>
         </li>
       </ul>
       <% if Current.user.present? %>
@@ -21,3 +23,4 @@
     </div>
   </div>
 </nav>
+

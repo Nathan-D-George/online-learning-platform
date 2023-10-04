@@ -19,7 +19,11 @@
       </div>
     </div>
     <% if Current.user.id == @user.id %>
-      <%= link_to "Delete Account", destroy_user_path(id:@user.id), class:'btn btn-danger', data:{turbo_method: :delete, turbo_confirm: "Delete Account?"} %>
+      <div class='d-flex align-items-center justify-content-center'>
+      <%= link_to "Edit Account",   edit_user_path(id: @user.id), class:'btn btn-success mt-4 col-3' %> 
+      &nbsp &nbsp &nbsp
+      <%= link_to "Delete Account", destroy_user_path(id:@user.id), class:'btn btn-danger mt-4 col-3', data:{turbo_method: :delete, turbo_confirm: "Delete Account?"} %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,29 @@
+<div class='d-flex align-items-center justify-content-center'>
+  <div class='col-md-6'>
+
+    <div class="card text-center" style='border-radius:20px; margin-top:40px'>
+      <div class="card-header" style='padding-top:30px'>
+        <%= image_tag(@user.photo, style:'width:150px; height:150px; border-radius: 50%') %>
+        <h4 class='mt-2'> <%= @user.name %> </h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> <%= @user.email %> </h5>
+        <p class="card-text"> With supporting text below as a natural lead-in to additional content. </p>
+        <% if @enrolment.status == "pending" %>
+          <h6><i>Pending</i></h6>
+          <%= link_to "Accept", set_status_path(status: "accepted", id: @enrolment.id), data:{turbo_method: :post}, class:'col-2 btn btn-success' %>
+          <%= link_to "Reject", set_status_path(status: "rejected", id: @enrolment.id), data:{turbo_method: :post}, class:'col-2 btn', style:'color:white; background-color:red' %>
+        <% elsif @enrolment.status == "accepted" %>
+          <h6 style='color:green'> <i> Accepted </i> </h6>
+          <%= link_to "Change to Reject", set_status_path(status: "rejected", id: @enrolment.id), data:{turbo_method: :post}, class:'col-2 btn', style:'color:white; background-color:red' %>
+        <% else %>
+          <h6 style='color:red'> <i> Rejected </i> </h6>
+          <%= link_to "Change to Accept", set_status_path(status: "accepted", id: @enrolment.id), data:{turbo_method: :post}, class:'col-2 btn btn-success' %>
+        <% end %>
+      </div>
+      <div class="card-footer text-muted">
+      </div>
+    </div>
+
+  </div>
+</div>

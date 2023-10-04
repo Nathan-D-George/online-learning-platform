@@ -19,14 +19,35 @@ class AssessmentsController < ApplicationController
     assessment.total       = params[:assessment][:total_marks].to_i
     assessment.assess_type = params[:assessment][:assess_type]
     assessment.course_id   = $course_id
-    debugger
     if assessment.save
       flash[:notice] = 'Assessment Created'
-      redirect_to new_quiz_path(id: assessment.id)
+      redirect_to new_quiz_path(id: assessment.id) if assessment.assess_type == "quiz"
+      redirect_to new_test_path(id: assessment.id) if assessment.assess_type == "test"
     else
       flash[:alert]  = 'Something went wrong: assessment creation'
       render :new
     end
+  end
+
+  def new_test
+    @assessment    = Assessment.find(params[:id].to_i)
+    $assessment_id = @assessment.id
+  end
+  
+  def add_paper
+    assessment = Assessment.find($assessment_id)
+    assessment.question_papers = params[:assessment][:file] if params[:assessment][:file].present?
+    if assessment.save
+      flash[:notice] = 'Successfully added question paper'
+      redirect_to show_assessment_path(id: assessment.id)
+    else
+      flash[:alert]  = 'Something went wrong: adding paper to assessment'
+      render :new_test
+    end
+  end
+
+  def show
+    @assessment = Assessment.find(params[:id].to_i)
   end
 
   def edit
@@ -54,7 +75,7 @@ class AssessmentsController < ApplicationController
     @quizzes = @course.quizzes.order(id: :desc) 
     @pic     = "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm90ZXBhZCUyMGFuZCUyMHBlbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
   end
-
+ 
   def destroy
     @assessment = Assessment.find(params[:id].to_i)
     course = Course.find(@assessment.course_id)
@@ -115,6 +136,7 @@ class AssessmentsController < ApplicationController
     question = quiz.questions.fifth  if params[:question][:question_no] == "5"
     question.body        = params[:question][:body]
     question.total_marks = params[:question][:total_marks]
+
     if question.save
       answers = question.answers
       answer1 = answers.first
@@ -167,7 +189,6 @@ class AssessmentsController < ApplicationController
       quiz.calculate_total_marks
       quiz.save
       flash[:notice] = "Added Question #{params[:question][:question_no].to_i}"
-      # redirect_to new_question_path(id: quiz.id)
       redirect_to show_quiz_path(id: quiz.id)
     else
       flash[:alert] = 'Something went wrong: question and answer creation'
@@ -216,4 +237,5 @@ class AssessmentsController < ApplicationController
     }
     @average = total.to_f / marks.length
   end
+  
 end

@@ -21,7 +21,10 @@ class CoursesController < ApplicationController
   end 
 
   def show
-    @course = Course.find(params[:id])
+    @course   = Course.find(params[:id].to_i)
+    enrolment = Current.user.enrolments.where(course_id: @course.id).first
+    redirect_to new_enrolment_path(id: @course.id) if Current.user.teacher == false && enrolment.blank?
+    redirect_to pending_path if enrolment.present? && enrolment.status == "pending"
   end
 
   def list
@@ -52,6 +55,9 @@ class CoursesController < ApplicationController
     redirect_to root_path
   end
 
+  def pending
+  end
+
   private
 
   def this_course_teacher_only
@@ -62,4 +68,5 @@ class CoursesController < ApplicationController
   def teachers_only
     redirect_to root_path, alert: "Teachers Only!" if Current.user.blank? || Current.user.teacher == false
   end
+
 end
