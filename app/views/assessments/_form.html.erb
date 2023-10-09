@@ -1,4 +1,3 @@
-
 <%= form_with model:@assessment, local:true do |f| %>
   <p>
     <h5> <%= f.label :name %> </h5>
@@ -13,11 +12,16 @@
     <%= f.number_field :total_marks, in: 5..150, step: 5, class:'form-control' %>
   </p>
   <p>
+    <%= f.select :course, [@course.id], {}, {class:'form-control quiz-number'} %>
+  </p>
+  <p>
     <h5> <%= f.label :Assessment_type %> </h5>
     <%= f.select :assess_type, ["quiz", "test"], { }, { multiple: false, class:'form-select' } %>
   </p>
   <% if !@assessment.new_record? %>
-    <p> <%= f.file_field :file, multiple: false %> </p>
+    <p> <%= f.file_field :file, multiple: false, class:'form-control mt-4' %> </p>
   <% end %>
   <%= f.submit(@assessment.new_record? ? "Create" : "Update", class:'btn btn-primary col-md-3') %>
 <% end %>
+
+

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :courses, dependent: :destroy
   has_many :marks, dependent: :destroy
   has_many :enrolments, dependent: :destroy
+  has_many :messages, dependent: :destroy
   
 
   after_create_commit { add_photo }

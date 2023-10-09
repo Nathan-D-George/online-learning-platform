@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get    'messages/new',     to: 'messages#new',     as: 'new_message'
+  post   'messages/create',  to: 'messages#create',  as: 'create_message'
+  delete 'messages/destroy', to: 'messages#destroy', as: 'destroy_message'
+
+  get 'room/view', to: 'rooms#view', as: 'view_room'
+
   get    '/enrolments/new',     to: 'enrolments#new',        as: 'new_enrolment'
   post   '/enrolments/create',  to: 'enrolments#create',     as: 'create_enrolment'
   get    '/enrolments/delete',  to: 'enrolments#del_fake',   as: 'delete_fake'
@@ -15,8 +21,10 @@ Rails.application.routes.draw do
   resources :assessments, except: [:new, :edit, :show, :destroy]
   get    '/assessments/new',         to: 'assessments#new',         as: 'new_assessment'
   post   '/assessments/create',      to: 'assessments#create',      as: 'create_assessment'
-  get    '/assessments/list',        to: 'assessments#list',        as: 'list_quizzes'
+  get    '/assessments/q-list',      to: 'assessments#list',        as: 'list_quizzes'
   get    '/assessments/results',     to: 'assessments#results',     as: 'quiz_results'
+  get    '/assessments/t-list',      to: 'assessments#t_list',      as: 'list_tests'
+  get    '/assessments/t-results',   to: 'assessments#t_results',   as: 'test_results'
   get    '/assessments/edit',        to: 'assessments#edit',        as: 'edit_assessment'
   patch  '/assessments/update',      to: 'assessments#update',      as: 'update_assessment'
   delete '/assessments/destroy',     to: 'assessments#destroy',     as: 'destroy_assessment'
@@ -75,28 +83,28 @@ end
   5 the Joy belonging co
   5 So good planetshakers
   
-  8  Lord of my life
-  5  Here is my heart
-  6  You will be saved
-  12 More of You
-  8  Been so good
-  8  Fear is not my future
-  8  You really are
-  11 Costly
-  9  One name
-  9  More than Able
-  9  Firm Foundation
-  5  Jehovah
-  6  Yahweh
-  7  Yahweh will Manifest
-  7  Yeshua
-  10 Who is this man?
-   5 Praise (Elevation)
-  7  Welcome Resurrection (Elevation)
-  9  Show me your Glory
-  6  Crowned (highlands worship, Rebecca Hart)
-  4  All hail the Power of Jesus name
+   8.5  Lord of my life
+   5.5  Here is my heart
+   6.2  You will be saved
+  11.8  More of You
+   7.7  Been so good
+   8.5  Fear is not my future
+   8.7  You really are
+  11.0  Costly
+   9.3  One name
+  10.0  More than Able
+   8.8  Firm Foundation
+   6.0  Jehovah
+   6.7  Yahweh
+   7.5  Yahweh will Manifest
+   7.0  Yeshua
+  10.0  Who is this man?
+   5.0  Praise (Elevation)
+   8.0  Welcome Resurrection (Elevation)
+   9.2  Show me your Glory
+   4.5 Crowned (highlands worship, Rebecca Hart)
+   4 All hail the Power of Jesus name
 
-  12 most beautiful (Greatest Father, Closest Friend)
+  12 most beautiful (Dearest Father, Closest Friend)
   Lex de Azevdo
 =end

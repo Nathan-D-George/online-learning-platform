@@ -79,7 +79,25 @@
 }
 .delete-button{
   pointer-events: none;
+  visibility: hidden;
 }
 .delete-box input:checked ~ .delete-button{
   pointer-events: all;
+  visibility: visible;
+}
+.chatroom{
+  height: 800px;
+  overflow-y: auto;
+  /* background-color: darkgray; */
+}
+.message-bubble{
+  word-wrap: break-word;
+  width: fit-content;
+  max-width: 40%; 
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: #555555;
+  padding:10px;
+  color:white;
 }

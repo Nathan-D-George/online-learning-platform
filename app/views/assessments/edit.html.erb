@@ -3,6 +3,8 @@
     <h1> Edit Assessment </h1>
     <%= render 'form' %>
     <%= link_to "Delete", destroy_assessment_path(id: @assessment.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn mt-4 col-md-3', style:'background-color: red; color:white' %>
+    &nbsp
+    <%= link_to "Cancel", show_assessment_path(id: @assessment.id), class:'btn btn-secondary mt-4 col-3' %>
   </div>
 </div>
 

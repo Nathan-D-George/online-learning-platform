@@ -9,6 +9,7 @@ class AssessmentsController < ApplicationController
   def new
     @assessment = Assessment.new
     $course_id  = params[:id].to_i
+    @course     = Course.find(params[:id].to_i)
     console
   end
 
@@ -18,7 +19,8 @@ class AssessmentsController < ApplicationController
     assessment.description = params[:assessment][:description]
     assessment.total       = params[:assessment][:total_marks].to_i
     assessment.assess_type = params[:assessment][:assess_type]
-    assessment.course_id   = $course_id
+    assessment.course_id   = params[:assessment][:course].to_i
+    debugger
     if assessment.save
       flash[:notice] = 'Assessment Created'
       redirect_to new_quiz_path(id: assessment.id) if assessment.assess_type == "quiz"
@@ -48,10 +50,12 @@ class AssessmentsController < ApplicationController
 
   def show
     @assessment = Assessment.find(params[:id].to_i)
+    @course     = Course.find(@assessment.course_id)
   end
 
   def edit
     @assessment = Assessment.find(params[:id].to_i)
+    @course     = Course.find(@assessment.course_id)
   end
 
   def update
@@ -89,19 +93,19 @@ class AssessmentsController < ApplicationController
     @quiz          = Quiz.new
     @question      = Question.new
     @answer        = Answer.new
-    @assessment    = Assessment.find(params[:id])
-    $course_id     = @assessment.course_id
+    @assessment    = Assessment.find(params[:id].to_i)
+    @course        = Course.find(@assessment.course_id)
     $assessment_id = @assessment.id
   end
 
   def create_quiz
     # create and initialize a quiz; give it questions and give each question 5 answers
     quiz = Quiz.new
-    quiz.course_id        = $course_id
+    quiz.course_id        = params[:quiz][:course].to_i
     quiz.name             = params[:quiz][:name]
     quiz.number_questions = params[:quiz][:number_of_questions]
-    quiz.assessment_id    = $assessment_id
-    # debugger
+    quiz.assessment_id    = params[:quiz][:assessment].to_i
+    debugger
     if quiz.save
       quiz.number_questions.times do |iteration|
         question = Question.new(quiz_id: quiz.id)
@@ -209,7 +213,7 @@ class AssessmentsController < ApplicationController
     @quiz = Quiz.find(params[:id].to_i)
     $quiz_id = params[:id].to_i
     mark  = Mark.where(user_id: Current.user.id, quiz_id: @quiz.id).first
-    redirect_to quiz_results_path(id: @quiz.course_id), alert: 'Already written the quiz' if mark.present? && mark.achievable >= @quiz.total_marks
+    redirect_to quiz_results_path(id: @quiz.id), alert: 'Already written the quiz' if mark.present? && mark.achievable >= @quiz.total_marks
   end
 
   def submit_quiz
@@ -237,5 +241,13 @@ class AssessmentsController < ApplicationController
     }
     @average = total.to_f / marks.length
   end
-  
+
+  def t_list
+    @course = Course.find(params[:id].to_i)
+    @tests  = @course.assessments.where(assess_type: "test").all
+  end
+
+  def t_results
+  end
+
 end

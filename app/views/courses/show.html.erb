@@ -1,5 +1,6 @@
 <div class='d-flex justify-content-center align-items-center'>
   <div class='col-md-6 mt-4'>
+
     <div class="card round">
       <div class="card-header text-center">
         <h3> <%= @course.name %> </h3>
@@ -11,30 +12,35 @@
         <%= User.find(@course.user_id).name %>
       </div>
     </div>
+
     <% if @course.user_id == Current.user.id %>
-      <%= link_to edit_course_path(id:@course.id), class:'btn btn-warning mt-4 col-3' do %>
-        <%= fa_icon "pencil-square" %> Edit Course
-      <% end %>
-      <%= link_to new_lesson_path(id: @course.id), class:'btn mt-4 col-3', style:'color:white; background-color:blue' do %>
-        <%= fa_icon "plus-circle" %> New Lesson
-      <% end %>
-      <%= link_to new_assessment_path, class:'btn mt-4 col-3', style:'background-color: gray' do %> 
-        <%= fa_icon "percent" %> New Assessment
-      <% end %>
-      <%= link_to new_quiz_path(id: @course.id), class:'btn mt-4 col-2', style:'background-color: lightblue' do %>
-        <%= fa_icon "gg" %> New Quiz
-      <% end %>
+      <div class='d-flex align-items-center justify-content-center'>
+        <%= link_to edit_course_path(id:@course.id), class:'btn btn-warning mt-4 col-3' do %>
+          <%= fa_icon "pencil-square" %> Edit Course
+        <% end %>
+        &nbsp &nbsp
+        <%= link_to new_lesson_path(id: @course.id), class:'btn mt-4 col-3', style:'color:white; background-color:blue' do %>
+          <%= fa_icon "plus-circle" %> New Lesson
+        <% end %>
+        &nbsp &nbsp
+        <%= link_to new_assessment_path(id: @course.id), class:'btn mt-4 col-3', style:'background-color: gray' do %> 
+          <%= fa_icon "percent" %> New Assessment
+        <% end %>
+      </div>
     <% end %>
-    <div class='mt-4'>
-      <h4> <%= link_to "Lessons", list_lessons_path(id: @course.id), style:'color:black' %> </h4>
+    
+    <div style='margin-left:30px'>
+        <h4 class='mt-4'> <%= link_to "Lessons", list_lessons_path(id: @course.id), style:'color: black' %> </h4>
       <% if @course.quizzes.present? %> 
-        <h4 class='mt-4'> <%= link_to "Quizzes", list_quizzes_path(id: @course.id), style:'color: black' %> </h4>
+        <h4 class='mt-4'> <%= link_to "Quizzes", list_quizzes_path(id: @course.id), style:'color: black' %> </h4> 
+      <% end %> 
+      <% if @tests.present? %>
+        <h4 class='mt-4'> <%= link_to "Tests", list_tests_path(id: @course.id),   style:'color: black' %> </h4>
       <% end %>
+        <h4 class='mt-4'> <%= link_to "Chatroom", view_room_path(id: @course.id), style:'color: black' %> </h4>
     </div>
-    <div class='mt-4'>
-      <h4> <%= link_to "Pending Applications", see_status_path(id:@course.id), style:'color:black' %> </h4>
-    </div>
-    <% if Current.user.teacher == false           %>
+
+    <% if Current.user.teacher == false %>
       <div class='delete-box' style="margin-top:410px;">
         <input type="checkbox" id="delete-box">
         <label for="delete-box">
@@ -43,7 +49,11 @@
         <div class='delete-button'>
           <%= link_to "De-Register", delete_fake_path(id: @course.id), class:'btn btn-danger col-2 mb-4', style:'background-color:red' %>
         </div>
-      </div>`
+      </div>
+    <% else %>
+      <div class='mt-4' style='margin-left:30px'>
+        <h4> <%= link_to "Pending Applications", see_status_path(id:@course.id), style:'color:black' %> </h4>
+      </div>
     <% end %>
 
   </div>

@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :this_course_teacher_only, only:[:edit, :destroy]
   before_action :teachers_only, only: [:new]
+  
   def new 
     @course = Course.new
     console
@@ -14,6 +15,9 @@ class CoursesController < ApplicationController
     if course.save 
       flash[:notice] = 'Course Created' 
       redirect_to show_course_path(id: course.id) 
+      room = Room.new
+      room.name = "#{course.name} chatroom"
+      room.save
     else 
       flash[:alert]  = 'Something went wrong: course creation' 
       render :new 
@@ -23,6 +27,7 @@ class CoursesController < ApplicationController
   def show
     @course   = Course.find(params[:id].to_i)
     enrolment = Current.user.enrolments.where(course_id: @course.id).first
+    @tests    = @course.assessments.where(assess_type: "test").all
     redirect_to new_enrolment_path(id: @course.id) if Current.user.teacher == false && enrolment.blank?
     redirect_to pending_path if enrolment.present? && enrolment.status == "pending"
   end

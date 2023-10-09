@@ -16,6 +16,6 @@
         Class average: <%= @average.truncate(1) %>/<%= @quiz.total_marks %>
       </div>
     </div>
-    <%= link_to "back", list_quizzes_path(id: @quiz.id), class:'mt-4 mb-4 btn btn-secondary col-md-2' %>
+    <%= link_to "back", list_quizzes_path(id: @quiz.course_id), class:'mt-4 mb-4 btn btn-secondary col-md-2' %>
   </div>
 </div>

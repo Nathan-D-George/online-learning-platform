@@ -1,0 +1,6 @@
+<div class="cont-<%=message.user_id%>">
+  <div class="message-bubble msg-<%= message.user_id %>"> 
+    <strong> <p> <%= User.find(message.user_id).name %> </p> </strong>
+    <%= message.body%> 
+  </div>
+</div>
