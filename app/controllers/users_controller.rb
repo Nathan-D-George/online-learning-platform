@@ -44,6 +44,18 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id].to_i)
+    if @user.teacher == true
+      @courses = []
+      Course.all.each{|course|
+        @courses.append(course) if course.user_id == Current.user.id
+      }
+    else
+      @courses = []
+      enrolments = Current.user.enrolments
+      enrolments.each{|enrolment|
+        @courses.append(Course.find(enrolment.course_id))
+      }
+    end
   end
 
   def destroy

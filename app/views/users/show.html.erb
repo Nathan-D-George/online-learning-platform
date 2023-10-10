@@ -14,7 +14,14 @@
             <p> <strong>Status: </strong> learner </p>
           <% end %>
           <hr>
-          <p> Courses </p>
+          <% if Current.user.teacher == false %>
+            <h5> Courses Joined </h5>
+          <% else %>
+            <h5> Courses Taught </h5>
+          <% end %>
+          <% @courses.each do |course| %>
+            <p style='margin-left:20px'> <%= course.name%> </p>
+          <% end %>
         </blockquote>
       </div>
     </div>

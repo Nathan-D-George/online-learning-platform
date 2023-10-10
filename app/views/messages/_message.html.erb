@@ -2,5 +2,14 @@
   <div class="message-bubble msg-<%= message.user_id %>"> 
     <strong> <p> <%= User.find(message.user_id).name %> </p> </strong>
     <%= message.body%> 
+    <% if message.attachments.attached? %>
+      <% message.attachments.each_with_index do |attachment, index| %>
+        <% if attachment.image? %>
+          <%= image_tag(message.chat_attachment(index)) %>
+        <% elsif attachment.video? %>
+          <%= video_tag(message.chat_attachment(index), style:'height:auto; width:100%', controls:'') %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>

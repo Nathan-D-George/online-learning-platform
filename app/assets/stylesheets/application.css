@@ -101,3 +101,17 @@
   padding:10px;
   color:white;
 }
+.upload-button{
+  padding: 10px;
+  font-size:25px;
+  color: black;
+}
+.upload-button:hover{
+  cursor: pointer;
+  opacity: 0.75;
+  color: white;
+  background-color: black;
+}
+.image-upload > input{
+  display: none;
+}

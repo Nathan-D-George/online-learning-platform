@@ -9,7 +9,9 @@ class MessagesController < ApplicationController
     message.body = params[:message][:body]
     message.user_id = Current.user.id
     message.room_id = params[:message][:room_id].to_i
+    message.attachments = params[:message][:attachments] if params[:message][:attachments].present?
     message.save
+    # debugger
     room = Room.find(message.room_id)
     redirect_to view_room_path(id: room.course_id)
   end

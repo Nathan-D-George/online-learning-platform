@@ -1,11 +1,20 @@
-<%= form_with model:@message, url: create_message_path, method: :post do |f| %>
-  <div class='row mt-4'>
-    <div class='col-md-10'>
-      <%= f.text_field :body, class:'form-control' %>
+<%= form_with model:@message, url: create_message_path, method: :post do |f| %> 
+  <div id='attachment-previews' data-controller='message-preview' data-action='message-preview#preview'> 
+  </div>
+  <div class='row mt-4'> 
+    <div class='col-md-1 image-upload'> 
+      <label for='message_attachments'> 
+        <%= fa_icon "plus-circle" %> 
+      </label> 
+      <%= f.file_field(:attachments, multiple: true, data:{controller:'message-preview', action:'change->message-preview#preview'}) %> 
     </div>
-    <div class='col-md-2'>
-      <%= f.submit "Send", class:'btn btn-success', style:'width:100%' %> 
+    <div class='col-md-9'>
+      <%= f.text_field :body, class:'form-control' %> 
+    </div> 
+    <div class='col-md-2'> 
+      <%= f.submit "Send", class:'btn btn-success', style:'width:100%', data:{disable_with: false, controller: 'message-preview', action:'click->message-preview#clearPreviews'} %> 
     </div> 
   </div> 
   <%= f.select :room_id, [@room.id], {}, {class:'form-control quiz-number'} %> 
-<% end %>
+<% end %> 
+ 
