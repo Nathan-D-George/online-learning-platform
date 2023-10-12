@@ -1,5 +1,17 @@
 <div class='d-flex align-items-center justify-content-center'>
   <div class='col-md-6'>
-    { test results should display here }
+
+    <div class="card text-center" style='border-radius:20px'>
+      <div class="card-header">
+        <h5> <%= @assessment.name %> </h5>
+      </div>
+      <div class="card-body">
+        <h5> <%= @test.mark %> / <%= @test.total %> </h5>
+      </div>
+      <div class="card-footer text-muted d-flex align-items-center justify-content-center">
+        <%= link_to "Back", show_course_path(id: @assessment.course_id), class:'btn btn-secondary col-2' %>
+      </div>  
+    </div>
+    
   </div>
 </div>

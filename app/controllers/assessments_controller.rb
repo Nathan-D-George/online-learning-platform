@@ -23,6 +23,9 @@ class AssessmentsController < ApplicationController
     debugger
     if assessment.save
       flash[:notice] = 'Assessment Created'
+      notification   = Notification.new
+      notification.assessment_new_notification(assessment)
+      notification.save
       redirect_to new_quiz_path(id: assessment.id) if assessment.assess_type == "quiz"
       redirect_to new_test_path(id: assessment.id) if assessment.assess_type == "test"
     else
@@ -50,7 +53,10 @@ class AssessmentsController < ApplicationController
 
   def show
     @assessment = Assessment.find(params[:id].to_i)
-    @course     = Course.find(@assessment.course_id)
+    @course     = Course.find(@assessment.course_id) 
+    @test       = Test.new
+    test1       = Test.where(assessment_id: @assessment.id, user_id: Current.user.id).first
+    redirect_to test_results_path(id: test1.id) if test1.present?
   end
 
   def edit
@@ -64,9 +70,12 @@ class AssessmentsController < ApplicationController
     assessment.description = params[:assessment][:description]
     assessment.total       = params[:assessment][:total_marks] if params[:assessment][:total_marks].present?
     assessment.assess_type = params[:assessment][:assess_type]
-    assessment.question_paper = params[:assessment][:file]     if params[:assessment][:file].present?
+    assessment.question_papers = params[:assessment][:file]     if params[:assessment][:file].present?
     if assessment.save
       flash[:notice] = 'Assessment Updated'
+      notification   = Notification.new
+      notification.assessment_update_notification(assessment)
+      notification.save
       redirect_to show_course_path(id: assessment.course_id)
     else
       flash[:alert]  = "Something went wrong"
@@ -248,6 +257,26 @@ class AssessmentsController < ApplicationController
   end
 
   def t_results
+    @test       = Test.find(params[:id].to_i)
+    @assessment = Assessment.find(@test.assessment_id)
+    @user       = User.find(@test.user_id)
+  end
+
+  def submit_test
+    test = Test.new
+    test.user_id       = Current.user.id
+    test.assessment_id = params[:test][:assessment_id]
+    test.answer_book   = params[:test][:answer_book]       # params[:test][:answer_book]
+    assessment = Assessment.find(params[:test][:assessment_id].to_i)
+    test.total = assessment.total
+    course     = Course.find(assessment.course_id)
+    if test.save
+      flash[:notice] = 'Test submitted successfully'
+      redirect_to show_course_path(id: course.id)
+    else
+      flash[:alert]  = 'Something went wrong: test submission'
+      render :show 
+    end
   end
 
 end

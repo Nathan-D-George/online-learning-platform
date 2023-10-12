@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/list',  to: 'notifications#list', as: 'list_notifications'
+
   get    'messages/new',     to: 'messages#new',     as: 'new_message'
   post   'messages/create',  to: 'messages#create',  as: 'create_message'
   delete 'messages/destroy', to: 'messages#destroy', as: 'destroy_message'
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
   get    '/assessments/take_quiz',   to: 'assessments#take_quiz',   as: 'take_quiz'
   post   '/assessments/submit_quiz', to: 'assessments#submit_quiz', as: 'submit_quiz'
   get    '/assessments/new_test',    to: 'assessments#new_test',    as: 'new_test'
+  post   '/assessments/submit_test', to: 'assessments#submit_test', as: 'submit_test'
   post   '/assessments/add_qp',      to: 'assessments#add_paper',   as: 'add_question_paper'
   get    '/assessments/question',    to: 'assessments#new_question',     as: 'new_question'
   post   '/assessments/question',    to: 'assessments#create_question',  as: 'create_question'

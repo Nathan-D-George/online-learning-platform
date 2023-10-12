@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_09_093446) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_055504) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,6 +94,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_093446) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "name"
+    t.integer "kind", default: 0
+    t.integer "course_id", default: 0
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "body"
     t.integer "quiz_id", null: false
@@ -116,6 +122,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_093446) do
     t.string "name"
     t.integer "course_id", null: false
     t.index ["course_id"], name: "index_rooms_on_course_id"
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.integer "assessment_id", null: false
+    t.integer "user_id", null: false
+    t.integer "total"
+    t.integer "mark"
+    t.index ["assessment_id"], name: "index_tests_on_assessment_id"
+    t.index ["user_id"], name: "index_tests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -141,4 +156,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_093446) do
   add_foreign_key "quizzes", "assessments"
   add_foreign_key "quizzes", "courses"
   add_foreign_key "rooms", "courses"
+  add_foreign_key "tests", "assessments"
+  add_foreign_key "tests", "users"
 end

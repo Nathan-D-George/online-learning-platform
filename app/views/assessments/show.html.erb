@@ -7,22 +7,33 @@
       </div>
       <div class="card-body">
         <h5 class="card-title"> <%= @assessment.assess_type %> </h5>
-        <p class="card-text"> <%= @assessment.description %> </p>
+        <p class="card-text">   <%= @assessment.description %> </p>
         <% if @assessment.question_papers.attached? %>
-          <% @assessment.question_papers.each_with_index do |file, index|%>
+          <% @assessment.question_papers.each_with_index do |file, index| %>
             <p> <%= link_to file.name, url_for(file), style:'color:black' %> </p>
           <% end %>
         <% end %>
       </div>
-      <div class="card-footer text-muted"></div>
+      <div class="card-footer text-muted">
+      </div>
+      <% if Current.user.teacher == false %>
+        <div class='d-flex align-items-center justify-content-center'>
+          <%= form_with model:@test, url: submit_test_path, method: :post do |f| %>
+            <%= f.label :upload_file %>
+            <%= f.file_field :answer_book, multiple: false, class:'form-control col-8' %>
+            <%= f.select :assessment_id, [@assessment.id], {}, {class:'quiz-number'} %>
+            <%= f.submit "Submit", class:'btn btn-success mt-2 mb-2' %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class='d-flex align-items-center justify-content-center'>
-      <%= link_to "Course", show_course_path(id: @course.id), class:'btn btn-primary mt-4 mb-4 col-2' %>
+      <%= link_to "Back to Course", show_course_path(id: @course.id), class:'btn btn-secondary mt-4 mb-4 col-2' %>
       <% if @course.user_id == Current.user.id %>
         &nbsp &nbsp
         <%= link_to "Edit", edit_assessment_path(id: @assessment.id), class:'btn btn-warning mt-4 mb-4 col-2' %>
       <% end %>
     </div>
+
   </div>
 </div>
-

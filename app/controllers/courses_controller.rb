@@ -18,6 +18,9 @@ class CoursesController < ApplicationController
       room = Room.new
       room.name = "#{course.name} chatroom"
       room.save
+      notification = Notification.new
+      notification.course_new_notification(course)
+      notification.save
     else 
       flash[:alert]  = 'Something went wrong: course creation' 
       render :new 
@@ -55,6 +58,9 @@ class CoursesController < ApplicationController
 
   def destroy
     @course = Course.find(params[:id].to_i)
+    notification = Notification.new
+    notification.course_deleted_notification(@course)
+    notification.save
     @course.destroy
     flash[:notice] = 'Course deleted'
     redirect_to root_path

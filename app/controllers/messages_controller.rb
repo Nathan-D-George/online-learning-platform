@@ -11,14 +11,14 @@ class MessagesController < ApplicationController
     message.room_id = params[:message][:room_id].to_i
     message.attachments = params[:message][:attachments] if params[:message][:attachments].present?
     message.save
-    # debugger
     room = Room.find(message.room_id)
     redirect_to view_room_path(id: room.course_id)
   end
 
   def destroy
     @message = Message.find(params[:id].to_i)
-    debugger
+    @message.destroy
+    flash[:notice] = "Message successfully deleted".
   end
 
 end

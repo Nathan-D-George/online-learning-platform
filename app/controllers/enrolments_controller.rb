@@ -14,6 +14,9 @@ class EnrolmentsController < ApplicationController
     enrolment.status    = "pending"
     if enrolment.save 
       flash[:notice] = "Applied for Course"
+      notification   = Notification.new
+      notification.enrolment_new_notification(enrolment)
+      notification.save
       redirect_to root_path
     else
       flash[:alert]  = "Something went wrong"
@@ -27,6 +30,9 @@ class EnrolmentsController < ApplicationController
 
   def destroy
     @enrolment = Enrolment.find(params[:id].to_i)
+    notification = Notification.new
+    notification.enrolment_deleted_notification(@enrolment)
+    notification.save
     @enrolment.destroy
     flash[:notice] = "Enrolment destroyed"
     redirect_to root_path
